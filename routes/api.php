@@ -22,5 +22,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['namespace' => 'Auth'], function () {
         Route::post('auth/register', 'RegisterController');
         Route::post('auth/login', 'LoginController');
+        Route::post('auth/restore', 'PasswordResetController@create');
+        Route::post('auth/restore/confirm', 'PasswordResetController@confirm');
     });
 });
