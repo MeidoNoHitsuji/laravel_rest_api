@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email_verified_at', 'password_reset_token', 'role', 'created_at', 'updated_at'
     ];
 
     /**
@@ -38,10 +38,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function work_position()
+    public function worker()
     {
         if($this->isWorker()){
-            return $this->hasOne(WorkPosition::class);
+            return $this->hasOne(Worker::class);
         }else{
             return null;
         }
@@ -55,10 +55,10 @@ class User extends Authenticatable
         return $this->role==1;
     }
 
-    public function setWorker(WorkPosition $position){ //Ужаснейшая реализация задумки, но с логической стороны, что каждый пользователь может быть только определённым работником, смотрится логично.. Вроде..
-        if($position->user == null){
-            $position->user_id=$this->id;
-            $position->save();
+    public function setWorker(Worker $worker){ //Ужаснейшая реализация задумки, но с логической стороны, что каждый пользователь может быть только определённым работником, смотрится логично.. Вроде..
+        if($worker->user == null){
+            $worker->user_id=$this->id;
+            $worker->save();
             $this->role=1;
             $this->save();
         }

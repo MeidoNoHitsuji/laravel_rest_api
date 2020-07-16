@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Worker;
 use App\Department;
 use App\WorkPosition;
 
@@ -30,7 +31,7 @@ class DepartmentController extends Controller
                 "message" => $message
             ], 200);
         }else if($user->isWorker()){
-            $d = $user->work_position->department;
+            $d = $user->worker->department;
             $worker = [];
             foreach ($d->work_positions as $p){
                 array_push($worker, ['id'=>$p->id, 'name'=>$p->name]);

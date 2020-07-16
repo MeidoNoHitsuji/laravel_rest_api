@@ -8,13 +8,12 @@ class WorkPosition extends Model
 {
     protected $fillable = ['name'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 
-    public function department()
+    public function departments()
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsToMany(Department::class, 'workers', 'work_position_id', 'department_id');
     }
 }

@@ -23,8 +23,8 @@ Route::get('unauthenticated', 'UserController@unauthenticated')->name('unauthent
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('departments', 'DepartmentController');
 
-    // Route::get('workers', '');
-    // Route::get('workers/{id}', '');
+    Route::get('workers', 'WorkerController@all');
+    Route::get('workers/{id}', 'WorkerController@worker');
 
     Route::get('user', 'UserController@read');
     Route::post('user', 'UserController@update');
