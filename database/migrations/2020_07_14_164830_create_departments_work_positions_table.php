@@ -13,7 +13,7 @@ class CreateDepartmentsWorkPositionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments_work_positions', function (Blueprint $table) {
+        Schema::create('department_work_position', function (Blueprint $table) {
             $table->id();
             $table->integer('department_id')->unsigned();
             $table->integer('work_position_id')->unsigned();
@@ -28,6 +28,6 @@ class CreateDepartmentsWorkPositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments_work_positions');
+        Schema::dropIfExists('department_work_position');
     }
 }

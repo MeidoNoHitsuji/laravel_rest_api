@@ -40,7 +40,28 @@ class User extends Authenticatable
 
     public function worker()
     {
-        return $this->belongsTo('App\Worker');
+        return $this->belongsTo(Worker::class);
+    }
+
+    public function isAdmin(){
+        return $this->role>=2;
+    }
+
+    public function isWorker(){
+        return $this->role==1;
+    }
+
+    public function setWorker(Department $departament, WorkPosition $position){ //Ужаснейшая реализация задумки, но с логической стороны, что каждый пользователь может быть только определённым работником, смотрится логично.. Вроде..
+        $w = new Worker();
+        $w->department_id = $departament->id;
+        $w->work_position_id = $position->id;
+        $w->save();
+        
+        $w = Worker::find(1);
+        
+        $this->worker()->associate($w);
+        $this->role=1;
+        $this->save();
     }
 
 }

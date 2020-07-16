@@ -14,15 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('unauthenticated', 'UserController@unauthenticated')->name('unauthenticated');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('departments', 'DepartmentController');
+
+    // Route::get('workers', '');
+    // Route::get('workers/{id}', '');
+
+    Route::get('user', 'UserController@read');
+    Route::post('user', 'UserController@update');
 });
 
-Route::group(['namespace' => 'Api'], function () {
+Route::group(['prefix' => 'auth', 'namespace' => 'Api'], function () {
     Route::group(['namespace' => 'Auth'], function () {
-        Route::post('auth/register', 'RegisterController');
-        Route::post('auth/login', 'LoginController');
-        Route::post('auth/restore', 'PasswordResetController@create');
-        Route::post('auth/restore/confirm', 'PasswordResetController@confirm');
+        Route::post('register', 'RegisterController');
+        Route::post('login', 'LoginController');
+        Route::post('restore', 'PasswordResetController@create');
+        Route::post('restore/confirm', 'PasswordResetController@confirm');
     });
 });
