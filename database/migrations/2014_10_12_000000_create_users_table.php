@@ -29,7 +29,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('password_reset_token')->nullable();
-            $table->integer('worker_id')->default(0);
             $table->integer('role')->default(0); //Можно было бы сделать через отдельную траблицу ролей, но для ТЗ сделаем так.
             $table->rememberToken();
             $table->timestamps();

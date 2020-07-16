@@ -38,9 +38,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function worker()
+    public function work_position()
     {
-        return $this->belongsTo(Worker::class);
+        if($this->isWorker()){
+            return $this->hasOne(WorkPosition::class);
+        }else{
+            return null;
+        }
     }
 
     public function isAdmin(){
@@ -51,17 +55,13 @@ class User extends Authenticatable
         return $this->role==1;
     }
 
-    public function setWorker(Department $departament, WorkPosition $position){ //Ужаснейшая реализация задумки, но с логической стороны, что каждый пользователь может быть только определённым работником, смотрится логично.. Вроде..
-        $w = new Worker();
-        $w->department_id = $departament->id;
-        $w->work_position_id = $position->id;
-        $w->save();
-        
-        $w = Worker::find(1);
-        
-        $this->worker()->associate($w);
-        $this->role=1;
-        $this->save();
+    public function setWorker(WorkPosition $position){ //Ужаснейшая реализация задумки, но с логической стороны, что каждый пользователь может быть только определённым работником, смотрится логично.. Вроде..
+        if($position->user == null){
+            $position->user_id=$this->id;
+            $position->save();
+            $this->role=1;
+            $this->save();
+        }
     }
 
 }

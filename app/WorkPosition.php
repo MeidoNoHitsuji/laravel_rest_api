@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class WorkPosition extends Model
 {
     protected $fillable = ['name'];
-    
-    public function departments()
+
+    public function user()
     {
-        return $this->belongsToMany('App\Department');
+        return $this->belongsTo(User::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 }

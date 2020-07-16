@@ -10,6 +10,6 @@ class Department extends Model
 
     public function work_positions()
     {
-        return $this->belongsToMany(WorkPosition::class);
+        return $this->hasMany(WorkPosition::class);
     }
 }

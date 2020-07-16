@@ -21,7 +21,7 @@ class DepartmentController extends Controller
             $message = [];
             foreach (Department::all() as $d) {
                 $worker = [];
-                foreach ($d->work_positions()->get() as $p){
+                foreach ($d->work_positions as $p){
                     array_push($worker, ['id'=>$p->id, 'name'=>$p->name]);
                 }
                 array_push($message, ['id'=>$d->id, 'name'=>$d->name, 'worker'=>$worker]);
@@ -30,12 +30,22 @@ class DepartmentController extends Controller
                 "message" => $message
             ], 200);
         }else if($user->isWorker()){
+            $d = $user->work_position->department;
+            $worker = [];
+            foreach ($d->work_positions as $p){
+                array_push($worker, ['id'=>$p->id, 'name'=>$p->name]);
+            }
+            $message = ['id'=>$d->id, 'name'=>$d->name, 'worker'=>$worker];
             return response()->json([
-                "message" => "2"
+                "message" => $message
             ], 200);
         }else{
+            $message = [];
+            foreach (Department::all() as $d) {
+                array_push($message, ['id'=>$d->id, 'name'=>$d->name]);
+            }
             return response()->json([
-                "message" => "3"
+                "message" => $message
             ], 200);
         }
     }
