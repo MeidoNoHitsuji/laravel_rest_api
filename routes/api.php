@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('unauthenticated', 'UserController@unauthenticated')->name('unauthenticated');
+Route::get('unauthenticated', 'UserController@unauthenticated')->name('unauthenticated'); //Вот просто на это полтора дня потратил.. В итоге решил сделать так.. Но тут явно что-то не так .-.
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('departments', 'DepartmentController');
@@ -38,3 +38,5 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'], function () {
         Route::post('restore/confirm', 'PasswordResetController@confirm');
     });
 });
+
+//Обожаю Python за то, что не пришлось скачивать сторонние приложения для того, чтобы кидаться запросами к этой апишке :D

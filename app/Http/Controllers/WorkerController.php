@@ -19,7 +19,7 @@ class WorkerController extends Controller
             $users_builder = $users_builder->where('name', $request->input('query'));
         }
         if($request->has('department_id')){
-            $users_id = Worker::where('department_id', $request->input('department_id'))->get()->mapWithKeys(function ($item){
+            $users_id = Worker::where('department_id', $request->input('department_id'))->get()->mapWithKeys(function ($item){ //Ну а это вообще отдельный ужас.. Всё ради пагинатора.. Или как-то можно по другому будет потом WorkerBuild преобразоват в UserBuild?
                 return [$item['user_id']];
             });
             $users_builder = $users_builder->whereIn('id', $users_id);

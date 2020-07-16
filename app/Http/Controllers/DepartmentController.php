@@ -23,7 +23,7 @@ class DepartmentController extends Controller
             foreach (Department::all() as $d) {
                 $worker = [];
                 foreach ($d->work_positions as $p){
-                    array_push($worker, ['id'=>$p->id, 'name'=>$p->name]);
+                    array_push($worker, ['id'=>$p->id, 'name'=>$p->name]); //Из-за того, что это отдельный класс приходится постоянно делать такой цикл.. Ну или я просто чего-то не знаю :D (что более вероятно)
                 }
                 array_push($message, ['id'=>$d->id, 'name'=>$d->name, 'worker'=>$worker]);
             }

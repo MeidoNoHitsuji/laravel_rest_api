@@ -25,6 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Passport::routes();
+        Passport::routes(); //Вот это хрень меня бесит, ибо она должна работать как ограничение на вход через header, но она не работает -_- Ну или я, как обычно, чего-то не знаю)
     }
 }
